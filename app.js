@@ -6,6 +6,7 @@ var cors = require('cors');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var config = require('./config/config');
+const { createProxyMiddleware } = require('http-proxy-middleware')
 
 
 // routes
@@ -40,6 +41,7 @@ mongoose
   .catch(err => console.log(err));
 
 // Use Routes
+// app.use(createProxyMiddleware(['/api' ], { target: process.env.PORT || 'http://localhost:3001' }));
 app.use(express.static(path.join(__dirname, 'build')));
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
