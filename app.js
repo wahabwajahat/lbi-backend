@@ -6,7 +6,6 @@ var cors = require('cors');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var config = require('./config/config');
-const { createProxyMiddleware } = require('http-proxy-middleware')
 
 
 // routes
