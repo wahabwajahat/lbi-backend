@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://wahabwajahat:gun24Run@cluster0-tgl43.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "sl_myJwtSecret"
+  }
