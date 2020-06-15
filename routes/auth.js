@@ -54,16 +54,35 @@ router.post('/login', async (req, res) => {
  */
 
 router.post('/register', async (req, res) => {
-  const { name, email, password } = req.body;
+  const { firstName, lastName, dob, gender,email,password,confirmPassword,accountType,address,city,province,Country,telephoneNumber,PostalCode } = req.body;
+  console.log("HERE", req.body);
 
   // Simple validation
-  if (!name || !email || !password) {
+
+  if(password!==confirmPassword){
+    console.log("DDSDFD")
+    return res.status(400).json({ msg: 'Passwords do not match' });
+  }
+
+  if (!firstName||
+    !lastName||
+    !dob||
+    !gender||
+    !email||
+    !password||
+    !accountType||
+    !address||
+    !city||
+    !province||
+    !Country||
+    !telephoneNumber||
+    !PostalCode) {
     return res.status(400).json({ msg: 'Please enter all fields' });
   }
 
   try {
     const user = await User.findOne({ email });
-    if (user) throw Error('User already exists');
+    if (user) return res.status(400).json({ msg: 'User Already exists' });
 
     const salt = await bcrypt.genSalt(10);
     if (!salt) throw Error('Something went wrong with bcrypt');
@@ -72,9 +91,19 @@ router.post('/register', async (req, res) => {
     if (!hash) throw Error('Something went wrong hashing the password');
 
     const newUser = new User({
-      name,
+      firstName,
+      lastName,
+      dob,
+      gender,
       email,
-      password: hash
+      password:hash,
+      accountType,
+      address,
+      city,
+      province,
+      Country,
+      telephoneNumber,
+      PostalCode,
     });
 
     const savedUser = await newUser.save();
@@ -88,8 +117,18 @@ router.post('/register', async (req, res) => {
       token,
       user: {
         id: savedUser.id,
-        name: savedUser.name,
-        email: savedUser.email
+        firstName: savedUser.firstName,
+        lastName: savedUser.lastName,
+        dob: savedUser.dob,
+        gender: savedUser.gender,
+        email: savedUser.email,
+        accountType: savedUser.accountType,
+        address: savedUser.address,
+        city: savedUser.city,
+        province: savedUser.province,
+        Country: savedUser.Country,
+        telephoneNumber: savedUser.telephoneNumber,
+        PostalCode: savedUser.PostalCode
       }
     });
   } catch (e) {
