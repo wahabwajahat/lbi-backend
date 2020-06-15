@@ -6,6 +6,7 @@ var cors = require('cors');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var config = require('./config/config');
+const fileUpload = require('express-fileupload');
 
 
 // routes
@@ -21,6 +22,8 @@ const app = express();
 
 // CORS Middleware
 app.use(cors());
+app.use(fileUpload());
+console.log("HERRE")
 // Logger Middleware
 app.use(morgan('dev'));
 // Bodyparser Middleware
@@ -36,17 +39,13 @@ mongoose
     useCreateIndex: true,
     useUnifiedTopology: true
   }) // Adding new mongo url parser
-  .then(() => console.log('MongoDB Connected...'))
+  .then(() => console.log('MongoDB ...'))
   .catch(err => console.log(err));
 
 // Use Routes
-// app.use(createProxyMiddleware(['/api' ], { target: process.env.PORT || 'http://localhost:3001' }));
-app.use(express.static(path.join(__dirname, 'build')));
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
+// app.use('/api/files', fileRoutes);
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {

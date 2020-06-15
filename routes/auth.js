@@ -17,7 +17,7 @@ const router = Router();
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
-
+console.log("HITTING")
   // Simple validation
   if (!email || !password) {
     return res.status(400).json({ msg: 'Please enter all fields' });
@@ -38,8 +38,18 @@ router.post('/login', async (req, res) => {
       token,
       user: {
         id: user._id,
-        name: user.name,
-        email: user.email
+        firstName: user.firstName,
+        lastName: user.lastName,
+        dob: user.dob,
+        gender: user.gender,
+        email: user.email,
+        accountType: user.accountType,
+        address: user.address,
+        city: user.city,
+        province: user.province,
+        Country: user.Country,
+        telephoneNumber: user.telephoneNumber,
+        PostalCode: user.PostalCode
       }
     });
   } catch (e) {
