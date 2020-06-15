@@ -1,18 +1,57 @@
 const mongoose = require('mongoose');
 // Create Schema
 const UserSchema = new mongoose.Schema({
-  name: {
+  firstName:{
     type: String,
-    required: true
+    required:true
   },
-  email: {
+  lastName:{
     type: String,
-    required: true,
-    unique: true
+    required:true
   },
-  password: {
+  dob:{
     type: String,
-    required: true
+    required:true
+  },
+  gender:{
+    type: String,
+    required:true
+  },
+  email:{
+    type: String,
+    required:true
+  },
+  password:{
+    type: String,
+    required:true
+  },
+  accountType:{
+    type: String,
+    required:true
+  },
+  address:{
+    type: String,
+    required:true
+  },
+  city:{
+    type: String,
+    required:true
+  },
+  province:{
+    type: String,
+    required:true
+  },
+  Country:{
+    type: String,
+    required:true
+  },
+  telephoneNumber:{
+    type: String,
+    required:true
+  },
+  PostalCode:{
+    type: String,
+    required:true
   },
   register_date: {
     type: Date,
